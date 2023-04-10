@@ -1,3 +1,7 @@
+let rounds = 0;
+let playerScore = 0;
+let computerScore = 0;
+
 function playRound() {
 	let results = {
 		rock: computerSelection === "paper" ? "lose" : "win",
@@ -19,4 +23,25 @@ function playRound() {
 	} else {
 		document.getElementById("result").innerHTML = "Invalid selection. Please try again.";
 	}
+}
+
+function game() {
+	if (rounds < 5) {
+		playRound();
+		rounds++;
+		if (document.getElementById("result").innerHTML.includes("win")) {
+			playerScore++;
+		} else if (document.getElementById("result").innerHTML.includes("lose")) {
+			computerScore++;
+		}
+	} else {
+		if (playerScore > computerScore) {
+			document.getElementById("result").innerHTML = "You win the game!";
+		} else if (playerScore < computerScore) {
+			document.getElementById("result").innerHTML = "You lose the game!";
+		} else {
+			document.getElementById("result").innerHTML = "It's a tie!";
+		}
+	}
+	console.log(playerScore, computerScore, rounds);
 }
