@@ -3,45 +3,51 @@ let playerScore = 0;
 let computerScore = 0;
 
 function playRound() {
+	let selections = ["rock", "paper", "scissors"];
+	let computerSelection = selections[Math.floor(Math.random() * selections.length)];
 	let results = {
 		rock: computerSelection === "paper" ? "lose" : "win",
 		paper: computerSelection === "scissors" ? "lose" : "win",
 		scissors: computerSelection === "rock" ? "lose" : "win",
-		selections: ["rock", "paper", "scissors"],
 	};
 	let playerSelection = document.getElementById("player").value;
-	var computerSelection = results.selections[Math.floor(Math.random() * results.selections.length)];
 
 	document.getElementById("computer").innerHTML = computerSelection;
 
 	if (playerSelection === computerSelection) {
-		document.getElementById("result").innerHTML = "It's a tie!";
+		changeResult("It's a tie!");
+		return "tie";
 	} else if (results[playerSelection] === "win") {
-		document.getElementById("result").innerHTML = `You win! ${playerSelection} beats ${computerSelection}!`;
+		changeResult(`You win! ${playerSelection} beats ${computerSelection}!`);
+		return "win";
 	} else if (results[playerSelection] === "lose") {
-		document.getElementById("result").innerHTML = `You lose! ${computerSelection} beats ${playerSelection}!`;
+		changeResult(`You lose! ${computerSelection} beats ${playerSelection}!`);
+		return "lose";
 	} else {
-		document.getElementById("result").innerHTML = "Invalid selection. Please try again.";
+		changeResult("Invalid selection. Please try again.");
 	}
 }
 
 function game() {
 	if (rounds < 5) {
-		playRound();
+		let round = playRound();
 		rounds++;
-		if (document.getElementById("result").innerHTML.includes("win")) {
+		if (round === "win") {
 			playerScore++;
-		} else if (document.getElementById("result").innerHTML.includes("lose")) {
+		} else if (round === "lose") {
 			computerScore++;
 		}
 	} else {
 		if (playerScore > computerScore) {
-			document.getElementById("result").innerHTML = "You win the game!";
+			changeResult("You win the game!");
 		} else if (playerScore < computerScore) {
-			document.getElementById("result").innerHTML = "You lose the game!";
+			changeResult("You lose the game!");
 		} else {
-			document.getElementById("result").innerHTML = "It's a tie!";
+			changeResult("It's a tie!");
 		}
 	}
-	console.log(playerScore, computerScore, rounds);
+}
+
+function changeResult(status) {
+	document.getElementById("result").innerHTML = status;
 }
