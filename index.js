@@ -37,7 +37,9 @@ function game() {
 		} else if (round === "lose") {
 			computerScore++;
 		}
-	} else {
+		document.getElementById("score").innerHTML = `Round: ${rounds} <br> Player: ${playerScore} Computer: ${computerScore}`;
+	}
+	if (rounds === 5) {
 		if (playerScore > computerScore) {
 			changeResult("You win the game!");
 		} else if (playerScore < computerScore) {
