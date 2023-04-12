@@ -11,6 +11,7 @@ function playRound() {
 		scissors: computerSelection === "rock" ? "lose" : "win",
 	};
 	let playerSelection = document.getElementById("player").value;
+	playerSelection = playerSelection.toLowerCase();
 
 	document.getElementById("computer").innerHTML = computerSelection;
 
